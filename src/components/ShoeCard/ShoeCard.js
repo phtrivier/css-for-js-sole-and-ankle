@@ -45,6 +45,7 @@ const ShoeCard = ({
         <Row>
           <ColorInfo>{pluralize('Color', numOfColors)}</ColorInfo>
         </Row>
+        <Tag variant={variant} />
       </Wrapper>
     </Link>
   );
@@ -55,16 +56,22 @@ const Link = styled.a`
   color: inherit;
 `;
 
-const Wrapper = styled.article``;
+const Wrapper = styled.article`
+  position: relative;
+`;
 
 const ImageWrapper = styled.div`
   position: relative;
 `;
 
-const Image = styled.img``;
+const Image = styled.img`
+ width: 100%;
+`;
 
 const Row = styled.div`
   font-size: 1rem;
+  display: flex;
+  justify-content: space-between;
 `;
 
 const Name = styled.h3`
@@ -82,5 +89,34 @@ const SalePrice = styled.span`
   font-weight: ${WEIGHTS.medium};
   color: ${COLORS.primary};
 `;
+
+
+function Tag({ variant }) {
+  if (variant === 'new-release') {
+    return <NewRelease>Just released !</NewRelease>
+  }
+  if (variant === "on-sale") {
+    return <OnSale>Sale</OnSale>
+  }
+  return null;
+}
+
+const BaseTag = styled.div`
+  position: absolute;
+  top: 8px;
+  right: -6px;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 4px;
+  background-color: var(--tag-bg);
+`
+
+const NewRelease = styled(BaseTag)`
+  --tag-bg: ${COLORS.secondary};
+`
+
+const OnSale = styled(BaseTag)`
+  --tag-bg: ${COLORS.primary};
+`
 
 export default ShoeCard;
